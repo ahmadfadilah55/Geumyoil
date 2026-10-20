@@ -111,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
             <Logo className="w-10 h-10 group-hover:scale-105 transition-transform" />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight text-[#16A48F]">
-                Geumyoil
+                Jumat
               </span>
             </div>
           </Link>
