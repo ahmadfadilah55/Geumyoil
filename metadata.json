@@ -1,0 +1,8 @@
+{
+  "name": "Remix Geumyoil - Konsultan Studi \u0026 Kerja Korea",
+  "description": "Landing page profesional \u0026 interaktif untuk layanan kursus Bahasa Korea, bimbingan studi beasiswa GKS, dan persiapan kerja EPS-TOPIK ke Korea Selatan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
