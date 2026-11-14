@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { HomeTestimonialSlider } from './components/HomeTestimonialSlider';
 import { ProgramSection } from './components/ProgramSection';
 import { ClassesSection } from './components/ClassesSection';
 import { GeumyoilPlusSection } from './components/GeumyoilPlusSection';
@@ -66,6 +67,11 @@ function Home() {
   const { handleOpenConsultation } = useOutletContext<ContextType>();
   const navigate = useNavigate();
 
+  const handleNavigateClasses = () => {
+    navigate('/kelas');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleNavigateContact = () => {
     navigate('/hubungi-kami');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -76,12 +82,21 @@ function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavigateTestimonials = () => {
+    navigate('/testimoni');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <Hero
-      onOpenConsultation={handleOpenConsultation}
-      onNavigateContact={handleNavigateContact}
-      onNavigatePlus={handleNavigatePlus}
-    />
+    <>
+      <Hero
+        onOpenConsultation={handleOpenConsultation}
+        onNavigateClasses={handleNavigateClasses}
+        onNavigateContact={handleNavigateContact}
+        onNavigatePlus={handleNavigatePlus}
+      />
+      <HomeTestimonialSlider onViewAll={handleNavigateTestimonials} />
+    </>
   );
 }
 

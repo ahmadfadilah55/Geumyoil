@@ -342,11 +342,10 @@ export const GeumyoilPlusSection: React.FC<GeumyoilPlusProps> = ({ onOpenConsult
                 
                 {/* Top Section */}
                 <div>
-                  {/* Top Header: Flag SVG, Flag Emoji & Region Badge */}
+                  {/* Top Header: Flag SVG & Region Badge */}
                   <div className="flex items-center justify-between gap-3 mb-4">
                     <div className="flex items-center gap-2.5">
                       {course.flagSvg}
-                      <span className="text-xl" title={course.name}>{course.flagEmoji}</span>
                     </div>
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${course.badgeColor}`}>
                       {course.region}

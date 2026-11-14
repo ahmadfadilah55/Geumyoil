@@ -1,8 +1,30 @@
-import React from 'react';
-import { Star, MapPin, CheckCircle2, Building2, Calendar } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { Star, MapPin, CheckCircle2, Calendar } from 'lucide-react';
 import { ALUMNI_STORIES } from '../data/koreaData';
 
+const RATING_POOL = [4.5, 4.6, 4.7, 4.8, 4.9, 5.0];
+
+const getStarFillWidthClass = (rating: number, index: number): string => {
+  const diff = Math.round((rating - index) * 10) / 10;
+  if (diff >= 1) return 'w-full';
+  if (diff >= 0.9) return 'w-[90%]';
+  if (diff >= 0.8) return 'w-[80%]';
+  if (diff >= 0.7) return 'w-[70%]';
+  if (diff >= 0.6) return 'w-[60%]';
+  if (diff >= 0.5) return 'w-1/2';
+  return 'w-0';
+};
+
 export const TestimonialsSection: React.FC = () => {
+  const storyRatings = useMemo(() => {
+    const pool = [...RATING_POOL];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return ALUMNI_STORIES.map((_, index) => pool[index % pool.length]);
+  }, []);
+
   return (
     <section id="testimoni" className="pt-10 pb-20 lg:pt-14 lg:pb-24 bg-gradient-to-b from-slate-50 via-white to-slate-50/50 text-slate-900 relative overflow-hidden">
       {/* Background Subtle Accents */}
@@ -25,6 +47,7 @@ export const TestimonialsSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
           {ALUMNI_STORIES.map((story, index) => {
             const isSeoul = story.location.includes('Seoul');
+            const rating = storyRatings[index];
             return (
               <div
                 key={story.id}
@@ -36,8 +59,7 @@ export const TestimonialsSection: React.FC = () => {
                   {/* University & Location Tag */}
                   <div className="flex items-start justify-between gap-3 mb-5">
                     <div>
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 text-white text-xs font-bold tracking-wide shadow-2xs mb-2">
-                        <Building2 className="w-3.5 h-3.5 text-amber-400" />
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#CD2E3A] text-white text-xs font-bold tracking-wide shadow-2xs mb-2">
                         <span>{story.university}</span>
                       </div>
                       <div className="flex items-center gap-1 text-xs font-semibold text-slate-500">
@@ -54,11 +76,6 @@ export const TestimonialsSection: React.FC = () => {
 
                   {/* Student Info Card */}
                   <div className="flex items-center gap-3.5 p-3 rounded-xl bg-slate-50/90 border border-slate-100 mb-5">
-                    <img
-                      src={story.image}
-                      alt={story.name}
-                      className="w-13 h-13 rounded-full object-cover ring-2 ring-white shadow-2xs shrink-0"
-                    />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <h3 className="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 truncate">
@@ -75,9 +92,14 @@ export const TestimonialsSection: React.FC = () => {
                   {/* Rating Stars */}
                   <div className="flex items-center gap-1 text-amber-400 mb-3.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <div key={i} className="relative w-4 h-4">
+                        <Star className="w-4 h-4 text-slate-200 fill-slate-200" />
+                        <div className={`absolute inset-y-0 left-0 overflow-hidden ${getStarFillWidthClass(rating, i)}`}>
+                          <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        </div>
+                      </div>
                     ))}
-                    <span className="text-xs font-bold text-slate-700 ml-1.5">5.0 / 5.0</span>
+                    <span className="text-xs font-bold text-slate-700 ml-1.5">{rating.toFixed(1)} / 5.0</span>
                   </div>
 
                   {/* Main Quote */}
