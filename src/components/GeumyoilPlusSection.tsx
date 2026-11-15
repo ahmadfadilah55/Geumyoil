@@ -239,7 +239,7 @@ export const GeumyoilPlusSection: React.FC<GeumyoilPlusProps> = ({ onOpenConsult
     },
     {
       id: 'bipa',
-      name: 'BIPA (Bahasa Indonesia)',
+      name: 'BIPA',
       nativeName: 'Bahasa Indonesia bagi Penutur Asing',
       region: 'BIPA',
       flagEmoji: '🇮🇩',

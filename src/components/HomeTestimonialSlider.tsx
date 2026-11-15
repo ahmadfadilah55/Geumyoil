@@ -7,8 +7,6 @@ interface HomeTestimonialSliderProps {
   onViewAll?: () => void;
 }
 
-const RATING_POOL = [4.5, 4.6, 4.7, 4.8, 4.9, 5.0];
-
 const getStarFillWidthClass = (rating: number, index: number): string => {
   const diff = Math.round((rating - index) * 10) / 10;
   if (diff >= 1) return 'w-full';
@@ -20,6 +18,8 @@ const getStarFillWidthClass = (rating: number, index: number): string => {
   return 'w-0';
 };
 
+const FIXED_RATINGS = [4.6, 4.8, 4.5, 4.6, 4.8];
+
 export const HomeTestimonialSlider: React.FC<HomeTestimonialSliderProps> = () => {
   const { language } = useLanguage();
   const trackRef = useRef<HTMLDivElement>(null);
@@ -27,14 +27,7 @@ export const HomeTestimonialSlider: React.FC<HomeTestimonialSliderProps> = () =>
   const [visibleCards, setVisibleCards] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
 
-  const storyRatings = useMemo(() => {
-    const pool = [...RATING_POOL];
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    return ALUMNI_STORIES.map((_, index) => pool[index % pool.length]);
-  }, []);
+  const storyRatings = FIXED_RATINGS;
 
   useEffect(() => {
     const updateVisibleCards = () => {
@@ -108,7 +101,7 @@ export const HomeTestimonialSlider: React.FC<HomeTestimonialSliderProps> = () =>
   return (
     <section
       aria-label={language === 'en' ? 'Alumni Testimonials' : 'Testimoni Alumni'}
-      className="py-12 lg:py-16 border-t border-slate-200/70 bg-white/70 backdrop-blur-[2px]"
+      className="pt-6 pb-12 lg:pt-8 lg:pb-16 border-t border-slate-200/70 bg-white/70 backdrop-blur-[2px]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={() => setIsPaused(true)}
@@ -173,11 +166,6 @@ export const HomeTestimonialSlider: React.FC<HomeTestimonialSliderProps> = () =>
                     <div className="text-sm font-extrabold text-slate-900 truncate">
                       {story.name}
                     </div>
-                    {story.badge && (
-                      <div className="text-xs text-slate-500 truncate mt-0.5">
-                        {story.badge}
-                      </div>
-                    )}
                   </div>
                 </div>
               </article>

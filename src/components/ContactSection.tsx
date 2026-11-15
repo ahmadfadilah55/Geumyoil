@@ -13,7 +13,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="hubungi-kami" className="pt-8 pb-16 lg:pt-10 lg:pb-20 bg-slate-50 text-slate-900 relative">
+    <section id="hubungi-kami" className="pt-6 pb-12 lg:pt-8 lg:pb-14 bg-slate-50 text-slate-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

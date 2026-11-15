@@ -20,36 +20,57 @@ export const Hero: React.FC<HeroProps> = ({
 
   const pathways = [
     {
-      num: '01',
       title: language === 'en' ? 'Korean Language' : 'Bahasa Korea',
       sub: language === 'en' ? 'Essentials & TOPIK 1–6' : 'Essentials & TOPIK 1–6',
       program: 'Kursus Bahasa Korea',
     },
     {
-      num: '02',
       title: language === 'en' ? 'Study & Scholarships' : 'Studi & Beasiswa',
       sub: language === 'en' ? 'GKS & Korean Universities' : 'GKS & Kampus Korea',
       program: 'Studi ke Korea',
     },
     {
-      num: '03',
       title: language === 'en' ? 'Official Career' : 'Kerja Resmi G2G',
       sub: language === 'en' ? 'EPS-TOPIK Preparation' : 'Persiapan EPS-TOPIK',
       program: 'Kerja di Korea',
     },
   ];
 
+  const highlights = [
+    {
+      title: 'Pengajar Berpengalaman',
+      desc: 'Belajar bersama pengajar dengan metode yang terarah dan interaktif.',
+    },
+    {
+      title: 'Kurikulum Terstruktur',
+      desc: 'Materi dirancang sesuai level dan tujuan belajar.',
+    },
+    {
+      title: 'Kelas Sesuai Tujuan',
+      desc: 'Essentials, TOPIK, hingga EPS-TOPIK.',
+    },
+    {
+      title: 'Fleksibel & Nyaman',
+      desc: 'Pilih Online, Hybrid, atau Offline Class.',
+    },
+    {
+      title: 'Konsultasi Studi & Karier',
+      desc: 'Dapatkan arahan untuk merencanakan langkahmu menuju Korea.',
+    },
+  ];
+
   return (
-    <section className="relative pt-10 pb-12 lg:pt-14 lg:pb-16 bg-transparent text-slate-900">
+    <section className="relative pt-10 pb-8 lg:pt-14 lg:pb-10 bg-transparent text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
+        {/* Top Split Hero */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch mb-12 lg:mb-16">
           {/* Left Content Column */}
           <div className="lg:col-span-6 flex flex-col justify-center">
             <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#CD2E3A] mb-4">
               <span>{t.hero.greeting}</span>
               <span aria-hidden="true" className="text-slate-300">·</span>
               <span className="text-slate-600 font-medium">
-                {language === 'en' ? 'Korean Study & Career Consultant' : 'Konsultan Studi & Bahasa Korea'}
+                South Korea Study and Career Consultant.
               </span>
             </div>
 
@@ -68,12 +89,12 @@ export const Hero: React.FC<HeroProps> = ({
             </p>
 
             {/* Primary & Secondary Actions */}
-            <div className="flex flex-wrap items-center gap-3.5">
+            <div className="flex flex-wrap items-center gap-3.5 mb-8">
               <button
                 id="hero-primary-cta"
                 type="button"
                 onClick={() => onOpenConsultation('Konsultasi')}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm sm:text-base font-bold text-white bg-[#CD2E3A] hover:bg-[#b52530] rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CD2E3A] focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm sm:text-base font-bold text-white bg-[#CD2E3A] hover:bg-[#b52530] rounded-xl shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CD2E3A] focus-visible:ring-offset-2"
               >
                 <span>{t.hero.ctaConsult}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -83,27 +104,29 @@ export const Hero: React.FC<HeroProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateClasses}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm sm:text-base font-semibold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm sm:text-base font-semibold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-2xs hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
                 >
                   <span>{language === 'en' ? 'Explore Classes' : 'Lihat Pilihan Kelas'}</span>
                 </button>
               )}
             </div>
 
-            {/* Clean Hairline Divider + 3 Pathways + Geumyoil+ Link */}
-            <div className="mt-9 pt-7 border-t border-slate-200/80">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                {pathways.map((item) => (
+            {/* Pathways + Geumyoil+ Link */}
+            <div className="pt-6 border-t border-slate-200/80">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {pathways.map((item, idx) => (
                   <button
-                    key={item.num}
+                    key={idx}
                     type="button"
                     onClick={() => onOpenConsultation(item.program)}
-                    className="group text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CD2E3A] rounded-lg"
+                    className="group relative flex flex-col justify-between p-3.5 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-left cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:border-[#CD2E3A]/45 hover:bg-gradient-to-br hover:from-white hover:to-rose-50/70 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CD2E3A] focus-visible:ring-offset-2"
                   >
-                    <div className="text-sm font-bold text-slate-900 group-hover:text-[#CD2E3A] transition-colors">
-                      {item.title}
+                    <div className="flex items-center justify-between gap-2 w-full">
+                      <span className="text-sm font-bold text-slate-900 group-hover:text-[#CD2E3A] transition-colors">
+                        {item.title}
+                      </span>
                     </div>
-                    <div className="text-xs text-slate-500 mt-0.5 leading-snug">
+                    <div className="text-xs text-slate-500 group-hover:text-slate-600 mt-1 leading-snug transition-colors">
                       {item.sub}
                     </div>
                   </button>
@@ -163,6 +186,38 @@ export const Hero: React.FC<HeroProps> = ({
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* 5 Key Advantages Grid Section */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-2xs">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900">
+              {language === 'en' ? 'Why Choose Geumyoil' : 'Kenapa Belajar Bersama Geumyoil'}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+              {language === 'en'
+                ? 'Designed for optimal learning outcomes and complete preparation toward your goals.'
+                : 'Dirancang untuk memberikan hasil belajar yang optimal dan persiapan menyeluruh demi menggapai impianmu.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {highlights.map((item, idx) => (
+              <div
+                key={idx}
+                className="p-5 rounded-xl bg-slate-50/80 border border-slate-100 flex flex-col justify-between hover:bg-white hover:border-slate-200 hover:shadow-sm transition-all group"
+              >
+                <div>
+                  <h3 className="text-sm font-extrabold text-slate-900 mb-1 group-hover:text-[#CD2E3A] transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

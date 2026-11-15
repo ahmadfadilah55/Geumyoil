@@ -6,7 +6,7 @@ interface FlexibilityProps {
 
 export const FlexibilitySection: React.FC<FlexibilityProps> = () => {
   return (
-    <section className="pt-8 pb-16 lg:pt-10 lg:pb-20 bg-white text-slate-900 relative">
+    <section className="pt-8 pb-8 lg:pt-10 lg:pb-10 bg-white text-slate-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Level Progression Stepper (3-Column Harmonized) */}

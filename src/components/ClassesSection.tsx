@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Laptop,
   Coffee,
@@ -122,7 +123,7 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
         'Pecinta budaya Korea & drama yang ingin memahami percakapan tanpa ketergantungan subtitle.',
         'Karyawan atau profesional yang ingin menambah keterampilan bahasa asing kedua secara fleksibel.'
       ],
-      syllabusTitle: 'Cakupan Materi Kelas Essentials',
+      syllabusTitle: 'Materi Kelas Essentials',
       syllabusPoints: [
         'Fondasi Hangeul lengkap: Vokal tunggal/ganda, konsonan dasar/aspirasi, dan hukum pelafalan batchim (받침).',
         'Tata bahasa esensial: Kalimat formal (ㅂ니다/습니다), sopan santun (아요/어요), dan informal/akrab (반말).',
@@ -149,7 +150,7 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
         'Mahasiswa jurusan Bahasa/Sastra Korea yang membutuhkan sertifikat kelulusan TOPIK resmi.',
         'Profesional yang ingin membuktikan kompetensi bahasa Korea berstandar internasional NIIED Korea.'
       ],
-      syllabusTitle: 'Cakupan Materi Kelas TOPIK',
+      syllabusTitle: 'Materi Kelas TOPIK',
       syllabusPoints: [
         'Bedah pola soal 듣기 (Listening): Trik eliminasi cepat opsi salah, tangkap kata kunci, dan latihan audio cepat.',
         'Strategi 읽기 (Reading): Membaca cepat teks ilmiah, artikel opini, grafik survei, dan peribahasa Korea (속담).',
@@ -176,7 +177,7 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
         'Peserta yang ingin lulus ujian EPS-TOPIK CBT dalam sekali percobaan dengan skor maksimal di atas passing grade.',
         'Calon tenaga kerja yang membutuhkan persiapan menyeluruh termasuk Skill Test & wawancara kerja.'
       ],
-      syllabusTitle: 'Cakupan Materi Kelas EPS-TOPIK',
+      syllabusTitle: 'Materi Kelas EPS-TOPIK',
       syllabusPoints: [
         'Pembahasan tuntas Buku Standar HRD Korea (한국어 표준교재) Jilid 1 & 2 dari Bab 1 sampai Bab 60.',
         'Penguasaan kosakata keselamatan kerja (K3), rambu bahaya di pabrik (안전표지), dan nama-nama peralatan kerja.',
@@ -977,36 +978,39 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
       </div>
 
       {/* POPUP MODAL DETAIL KELAS */}
-      {selectedModalDetail && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-xs overflow-y-auto animate-fadeIn">
+      {selectedModalDetail &&
+        createPortal(
           <div
-            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden my-auto"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200"
+            onClick={() => setSelectedModalDetail(null)}
           >
+            <div
+              className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Modal Header */}
-            <div className="p-6 border-b border-slate-100 flex items-start justify-between gap-4 bg-slate-50/70">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+            <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-b border-slate-100 flex items-center justify-between gap-3 bg-slate-50/80 shrink-0">
+              <div className="flex flex-wrap items-center gap-2.5 min-w-0">
+                <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                   {selectedModalDetail.title}
                 </h3>
-                <div className="mt-2.5 flex flex-wrap items-center gap-2">
-                  <div
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold border shadow-xs ${
-                      selectedModalDetail.format === 'Online'
-                        ? 'bg-blue-50 text-[#0047A0] border-blue-200'
-                        : selectedModalDetail.format === 'Hybrid'
-                        ? 'bg-teal-50 text-[#16A48F] border-teal-200'
-                        : 'bg-rose-50 text-[#CD2E3A] border-rose-200'
-                    }`}
-                  >
-                    <Clock className="w-3.5 h-3.5 shrink-0" />
-                    <span>Durasi: {selectedModalDetail.duration}</span>
-                  </div>
+                <div
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg text-[11px] font-bold border shadow-2xs ${
+                    selectedModalDetail.format === 'Online'
+                      ? 'bg-blue-50 text-[#0047A0] border-blue-200'
+                      : selectedModalDetail.format === 'Hybrid'
+                      ? 'bg-teal-50 text-[#16A48F] border-teal-200'
+                      : 'bg-rose-50 text-[#CD2E3A] border-rose-200'
+                  }`}
+                >
+                  <Clock className="w-3 h-3 shrink-0" />
+                  <span>{selectedModalDetail.duration}</span>
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setSelectedModalDetail(null)}
-                className="p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition-colors cursor-pointer shrink-0 mt-0.5"
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition-colors cursor-pointer shrink-0"
                 aria-label="Tutup Modal"
               >
                 <X className="w-5 h-5" />
@@ -1014,14 +1018,14 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="p-6 overflow-y-auto space-y-6 text-slate-800">
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-4 text-slate-800 flex-1 min-h-0">
               
               {/* Deskripsi Program */}
               <div>
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">
                   <span>Deskripsi &amp; Fokus Program</span>
                 </h4>
-                <div className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                <div className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 sm:p-3.5 rounded-xl border border-slate-200/80">
                   <p>{selectedModalDetail.description}</p>
                 </div>
               </div>
@@ -1029,18 +1033,18 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
               {/* Cocok untuk kamu yang */}
               {selectedModalDetail.suitableFor && selectedModalDetail.suitableFor.length > 0 && (
                 <div>
-                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                  <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">
                     <span>Cocok untuk kamu yang:</span>
                   </h4>
                   <div
-                    className="p-4 rounded-2xl border space-y-2 text-xs sm:text-sm"
+                    className="p-3 sm:p-3.5 rounded-xl border space-y-1.5 text-xs sm:text-sm"
                     style={{
                       backgroundColor: `${selectedModalDetail.themeColor}0D`,
                       borderColor: `${selectedModalDetail.themeColor}30`
                     }}
                   >
                     {selectedModalDetail.suitableFor.map((point, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-slate-700">
+                      <div key={idx} className="flex items-start gap-2 text-slate-700">
                         <CheckCircle2
                           className="w-4 h-4 shrink-0 mt-0.5"
                           style={{ color: selectedModalDetail.themeColor }}
@@ -1054,12 +1058,12 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
 
               {/* Spesifikasi Format & Rasio Siswa */}
               <div>
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">
                   <span>Format, Durasi &amp; Kapasitas Kelas</span>
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                  <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-blue-100/70 border border-blue-200/70 flex items-center justify-center shrink-0 text-[#0047A0]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+                  <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100/70 border border-blue-200/70 flex items-center justify-center shrink-0 text-[#0047A0]">
                       <Users className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
@@ -1068,8 +1072,8 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-teal-100/70 border border-teal-200/70 flex items-center justify-center shrink-0 text-[#16A48F]">
+                  <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-teal-100/70 border border-teal-200/70 flex items-center justify-center shrink-0 text-[#16A48F]">
                       <Clock className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
@@ -1078,8 +1082,8 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-rose-100/70 border border-rose-200/70 flex items-center justify-center shrink-0 text-[#CD2E3A]">
+                  <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-rose-100/70 border border-rose-200/70 flex items-center justify-center shrink-0 text-[#CD2E3A]">
                       <Calendar className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
@@ -1088,8 +1092,8 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-100/70 border border-emerald-200/70 flex items-center justify-center shrink-0 text-emerald-600">
+                  <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100/70 border border-emerald-200/70 flex items-center justify-center shrink-0 text-emerald-600">
                       <ShieldCheck className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
@@ -1102,12 +1106,12 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
 
               {/* Keunggulan Utama */}
               <div>
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">
                   <span>Keunggulan &amp; Fasilitas Program</span>
                 </h4>
-                <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                <div className="space-y-1.5 bg-slate-50 p-3 sm:p-3.5 rounded-xl border border-slate-200/80">
                   {selectedModalDetail.highlights.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                    <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#0047A0] shrink-0 mt-1.5" />
                       <span>{item}</span>
                     </div>
@@ -1117,12 +1121,12 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
 
               {/* Cakupan Silabus Pembelajaran */}
               <div>
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">
                   <span>Cakupan Silabus &amp; Materi Pembelajaran</span>
                 </h4>
-                <div className="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                <div className="space-y-1.5 bg-slate-50 p-3 sm:p-3.5 rounded-xl border border-slate-200/80">
                   {selectedModalDetail.syllabus.map((syl, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                    <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#0047A0] shrink-0 mt-1.5" />
                       <span>{syl}</span>
                     </div>
@@ -1133,11 +1137,11 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
             </div>
 
             {/* Modal Action Footer */}
-            <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50/70 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="px-5 py-3 sm:px-6 sm:py-3.5 border-t border-slate-100 bg-slate-50/80 flex flex-col sm:flex-row items-center justify-between gap-2.5 shrink-0">
               <button
                 type="button"
                 onClick={() => setSelectedModalDetail(null)}
-                className="w-full sm:w-auto px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 rounded-xl transition-colors cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 rounded-xl transition-colors cursor-pointer"
               >
                 Tutup
               </button>
@@ -1148,30 +1152,32 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
                   setSelectedModalDetail(null);
                   onOpenConsultation(programName);
                 }}
-                className="w-full sm:w-auto px-6 py-3 bg-[#0047A0] hover:bg-[#003882] text-white font-bold text-xs sm:text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-2.5 bg-[#0047A0] hover:bg-[#003882] text-white font-bold text-xs sm:text-sm rounded-xl transition-all cursor-pointer shadow-sm flex items-center justify-center gap-2"
               >
                 <span>Konsultasi &amp; Daftar Kelas Ini</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+          document.body
+        )}
       {/* POPUP MODAL INFORMASI PERUNTUKAN / SILABUS SUBMENU */}
-      {activeInfoModalType && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-xs overflow-y-auto animate-fadeIn"
-          onClick={() => setActiveInfoModalType(null)}
-        >
-          <div
-            className="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden my-auto"
-            onClick={(e) => e.stopPropagation()}
+      {activeInfoModalType &&
+        createPortal(
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200"
+            onClick={() => setActiveInfoModalType(null)}
           >
+            <div
+              className="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Modal Header */}
-            <div className="p-6 border-b border-slate-100 flex items-start justify-between gap-4 bg-slate-50/80">
-              <div className="flex items-center gap-3.5">
+            <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-b border-slate-100 flex items-center justify-between gap-3 bg-slate-50/80 shrink-0">
+              <div className="flex items-center gap-3">
                 <div
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-xs"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs"
                   style={{
                     backgroundColor: `${currentInfo.themeColor}18`,
                     color: currentInfo.themeColor
@@ -1187,7 +1193,7 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
                   <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
                     {currentInfo.title}
                   </div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight leading-snug">
                     {activeInfoModalType === 'audience'
                       ? currentInfo.audienceTitle
                       : currentInfo.syllabusTitle}
@@ -1197,7 +1203,7 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveInfoModalType(null)}
-                className="p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition-colors cursor-pointer shrink-0"
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition-colors cursor-pointer shrink-0"
                 aria-label="Tutup Pop-up"
               >
                 <X className="w-5 h-5" />
@@ -1205,23 +1211,23 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 overflow-y-auto space-y-4 text-slate-800">
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-3 text-slate-800 flex-1 min-h-0">
               <p className="text-xs sm:text-sm text-slate-600 font-medium">
                 {activeInfoModalType === 'audience'
                   ? 'Karakteristik peserta yang direkomendasikan untuk mengikuti program ini:'
                   : 'Rincian modul kurikulum dan fokus pembelajaran yang akan dikuasai:'}
               </p>
-              <div className="bg-slate-50/90 border border-slate-200/80 rounded-2xl p-4 sm:p-5 space-y-3">
+              <div className="bg-slate-50/90 border border-slate-200/80 rounded-xl p-3.5 sm:p-4 space-y-2.5">
                 {(activeInfoModalType === 'audience'
                   ? currentInfo.audiencePoints
                   : currentInfo.syllabusPoints
                 ).map((point, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 leading-relaxed"
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed"
                   >
                     <div
-                      className="w-2 h-2 rounded-full shrink-0 mt-1.5 shadow-xs"
+                      className="w-2 h-2 rounded-full shrink-0 mt-1.5 shadow-2xs"
                       style={{ backgroundColor: currentInfo.themeColor }}
                     />
                     <span>{point}</span>
@@ -1231,18 +1237,19 @@ export const ClassesSection: React.FC<ClassesSectionProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 sm:p-5 border-t border-slate-100 bg-slate-50/70 flex items-center justify-end">
+            <div className="px-5 py-3 sm:px-6 sm:py-3.5 border-t border-slate-100 bg-slate-50/80 flex items-center justify-end shrink-0">
               <button
                 type="button"
                 onClick={() => setActiveInfoModalType(null)}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-white hover:border-slate-400 transition-all cursor-pointer shadow-xs"
+                className="w-full sm:w-auto px-5 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-white hover:border-slate-400 transition-all cursor-pointer shadow-2xs"
               >
                 Tutup
               </button>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+          document.body
+        )}
     </section>
   );
 };

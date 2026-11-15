@@ -23,7 +23,7 @@ export const TriplePath: React.FC<TriplePathProps> = ({ onOpenConsultation }) =>
   };
 
   return (
-    <section id="layanan" className="pt-8 pb-16 lg:pt-10 lg:pb-20 bg-transparent text-slate-900 relative">
+    <section id="layanan" className="pt-6 pb-8 lg:pt-8 lg:pb-10 bg-transparent text-slate-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

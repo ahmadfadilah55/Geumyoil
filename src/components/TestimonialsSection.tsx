@@ -2,8 +2,6 @@ import React, { useMemo } from 'react';
 import { Star, MapPin, CheckCircle2, Calendar } from 'lucide-react';
 import { ALUMNI_STORIES } from '../data/koreaData';
 
-const RATING_POOL = [4.5, 4.6, 4.7, 4.8, 4.9, 5.0];
-
 const getStarFillWidthClass = (rating: number, index: number): string => {
   const diff = Math.round((rating - index) * 10) / 10;
   if (diff >= 1) return 'w-full';
@@ -15,15 +13,10 @@ const getStarFillWidthClass = (rating: number, index: number): string => {
   return 'w-0';
 };
 
+const FIXED_RATINGS = [4.6, 4.8, 4.5, 4.6, 4.8];
+
 export const TestimonialsSection: React.FC = () => {
-  const storyRatings = useMemo(() => {
-    const pool = [...RATING_POOL];
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    return ALUMNI_STORIES.map((_, index) => pool[index % pool.length]);
-  }, []);
+  const storyRatings = FIXED_RATINGS;
 
   return (
     <section id="testimoni" className="pt-10 pb-20 lg:pt-14 lg:pb-24 bg-gradient-to-b from-slate-50 via-white to-slate-50/50 text-slate-900 relative overflow-hidden">
